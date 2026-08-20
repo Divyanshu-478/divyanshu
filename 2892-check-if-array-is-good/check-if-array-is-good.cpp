@@ -1,24 +1,27 @@
 class Solution {
 public:
     bool isGood(vector<int>& nums) {
-        int max=nums[0];
-        for(int i=1;i<nums.size();i++)
-        {
-            if(nums[i]>max)
-            {
-                max=nums[i];
-            }
-        }
-        vector<int>count(max+1,0);
-        for(int i=0;i<nums.size();i++)
-        {
-            count[nums[i]]++;
-        }
-        for(int i=1;i<max;i++)
-        {
-            if(count[i]>1 || count[i]==0)
+        int mx = *max_element(nums.begin(), nums.end());
+
+        // size must be mx + 1
+        if(nums.size() != mx + 1)
             return false;
+
+        vector<int> freq(mx + 1, 0);
+
+        for(int x : nums) {
+            // invalid number
+            if(x < 1 || x > mx)
+                return false;
+            freq[x]++;
         }
-        return count[max]==2;
+
+        // 1 to mx-1 should appear once
+        for(int i = 1; i < mx; i++) {
+            if(freq[i] != 1)
+                return false;
+        }
+        // mx should appear twice
+        return freq[mx] == 2;
     }
 };
