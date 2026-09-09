@@ -4,35 +4,36 @@ public:
         sort(nums.begin(), nums.end());
 
         int n = nums.size();
-        int diff = INT_MAX;
-        int res_sum = 0;
+        int closest = nums[0] + nums[1] + nums[2];
 
         for (int i = 0; i < n - 2; i++) {
+
             int left = i + 1;
             int right = n - 1;
 
             while (left < right) {
-                int total = nums[i] + nums[left] + nums[right];
-                int d = abs(target - total);
 
-                if (diff > d) {
-                    diff = d;
-                    res_sum = total;
+                int sum = nums[i] + nums[left] + nums[right];
+
+                // Update closest sum
+                if (abs(target - sum) < abs(target - closest)) {
+                    closest = sum;
                 }
 
-                if (total == target) {
-                    return res_sum;
+                // Exact answer
+                if (sum == target) {
+                    return sum;
                 }
 
-                if (total < target) {
+                // Move pointers
+                if (sum < target) {
                     left++;
-                }
-                else {
+                } else {
                     right--;
                 }
             }
         }
 
-        return res_sum;
+        return closest;
     }
 };
