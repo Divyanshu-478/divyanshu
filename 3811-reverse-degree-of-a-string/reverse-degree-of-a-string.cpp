@@ -1,15 +1,13 @@
 class Solution {
 public:
     int reverseDegree(string s) {
-        int sum = 0;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s[i];
+        int ans = 0;
 
-            int reverseValue = 26 - (c - 'a');
-            int position = i + 1;
-
-            sum += reverseValue * position;
+        for(int i = 0; i < s.size(); i++) {
+            int x = 26 - (s[i] - 'a');
+            ans += x * (i + 1);
         }
-        return sum;
+
+        return ans;
     }
 };
